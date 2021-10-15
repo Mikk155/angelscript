@@ -1,6 +1,5 @@
-/*/ Spirit Of Half Life env_quakefx ported by Gaftherman for map conversion
 
-Particle Styles.
+/*/
     4 : "Tar Explosion"
     10 : "Lava Splash"
     11 : "Teleport Splash"
@@ -23,6 +22,7 @@ namespace EnvQuakeFx
         {
             self.pev.movetype = MOVETYPE_NONE;
             self.pev.solid = SOLID_NOT;
+            g_EntityFuncs.SetOrigin( self, self.pev.origin );
 
             if( self.pev.health == 0.0f )
                 self.pev.health = 10.0f; // duration
@@ -31,7 +31,7 @@ namespace EnvQuakeFx
                 self.pev.impulse = 122.0f;
 
             if( self.pev.armortype == 0.0f )
-                self.pev.armortype = 300.0f; // radius
+                self.pev.armortype = 500.0f; // radius
 
             if( self.pev.frags == 0.0f )
                 self.pev.frags = 12.0f; // particle colour
@@ -39,32 +39,6 @@ namespace EnvQuakeFx
 
         void Use(CBaseEntity@ pActivator, CBaseEntity@ pCaller, USE_TYPE useType, float flValue)
         {
-            if( ( self.pev.spawnflags & SF_QUAKEFX_REPEATABLE ) > 0 )
-            {
-                // We're toggled so determine what to do based on the use type.
-                switch( useType )
-                {
-                    case USE_OFF:
-                        self.pev.nextthink = 0.0f;
-                        break;
-
-                    case USE_ON:
-                        self.pev.nextthink = g_Engine.time;
-                        break;
-
-                    case USE_TOGGLE:
-                        if( self.pev.nextthink > 0.0f )
-                            self.pev.nextthink = 0.0f;
-                        else
-                            self.pev.nextthink = g_Engine.time;
-                }
-            }
-            else
-                self.pev.nextthink = g_Engine.time; // If we don't toggle, just kickstart the thinking to run it once.
-        }
-
-        void Think()
-        {             
             NetworkMessage quakefx( MSG_BROADCAST, NetworkMessages::SVC_TEMPENTITY, null );
             quakefx.WriteByte( self.pev.impulse);
 
@@ -87,17 +61,18 @@ namespace EnvQuakeFx
             }
             quakefx.End();
 
-            // When toggled, think with a 0.1 second delay.
-            // Experiment with different timings and life/decay rate for better results.
-            if ((self.pev.spawnflags & SF_QUAKEFX_REPEATABLE ) > 0)
+            if ( (self.pev.spawnflags & SF_QUAKEFX_REPEATABLE ) > 0)
             {
-                self.pev.nextthink = g_Engine.time + ( self.pev.health / 10 );
+                self.pev.nextthink = g_Engine.time + (self.pev.health + 5.0f);
             }
             else
             {
                 SetThink( ThinkFunction(this.SUB_Remove) );
-                self.pev.nextthink = g_Engine.time;
+                self.pev.nextthink = g_Engine.time + 0.0f;
             }
+
+            // Trigger targets
+            self.SUB_UseTargets( pActivator, USE_TOGGLE, 0 );
         }
 
         void SUB_Remove()

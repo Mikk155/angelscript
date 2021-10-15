@@ -1,5 +1,5 @@
 //Plugin created by Outerbeast version map script
-const string strWelcomeModel = "models/your_folder/your_model.mdl"; //-name of the motd V_ view model 
+const string strWelcomeModel = "models/lobby.mdl"; //-name of the motd V_ view model 
 
 void MapInit()
 {

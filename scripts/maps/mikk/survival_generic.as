@@ -1,7 +1,23 @@
-/* Survival generic for Limitless Potential's campaigns.
-this script just remove the survival-count-down and prevent players
-farm weapons for the first seconds*/
-#include "hunger/leveldead_loadsaved"
+/*
+*	Survival generic for Limitless Potential
+*	this script just remove the survival-count-down
+*	this prevent players farm weapons for the first seconds
+*	and let them be scared about the survival time
+*	how to install
+
+#include "mikk/survival_generic"
+
+bool blSurvivalEnable = true; // true = Survival-Mode
+
+void MapInit()
+{
+	if( blSurvivalEnable )
+		Survival_on();
+		ActivateCvars(
+	);
+}
+*/
+#include "../hunger/leveldead_loadsaved"
 
 void MapStart()
 {
