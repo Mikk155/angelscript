@@ -12,6 +12,7 @@
 */
 #include "trigger_once_mp"
 #include "trigger_multiple_mp"
+#include "trigger_entity_volume"
 class anti_rush : ScriptBaseEntity
 {
     private EHandle hAntiRushLock;
@@ -136,4 +137,5 @@ void RegisterAntiRushEntity()
     g_CustomEntityFuncs.RegisterCustomEntity( "anti_rush", "anti_rush" );
     g_CustomEntityFuncs.RegisterCustomEntity( "trigger_once_mp", "trigger_once_mp" );
     g_CustomEntityFuncs.RegisterCustomEntity( "trigger_multiple_mp", "trigger_multiple_mp" );
+	g_CustomEntityFuncs.RegisterCustomEntity( "trigger_entity_volume", "trigger_entity_volume" );
 }
