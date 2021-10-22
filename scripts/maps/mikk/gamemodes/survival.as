@@ -17,7 +17,7 @@ void MapInit()
 	);
 }
 */
-#include "../hunger/leveldead_loadsaved"
+#include "../../hunger/leveldead_loadsaved"
 
 void MapStart()
 {
