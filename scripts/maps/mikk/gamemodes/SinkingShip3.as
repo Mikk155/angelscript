@@ -8,12 +8,14 @@
 /*																	*/
 /*																	*/
 /*		HOW TO INSTALL:												*/
-/*			Add this to the BOTTOM of the MapInit			
+/*			Add this to the bottom of the MapInit			
 	
 #include "mikk/gamemodes/SinkingShip3"
 
 
 bool bEnabled;
+
+const array<string> DISALLOWED_MAPS = { 'of0a0', 'sc_tetris*', 'aom*' };
 
 void MapInit()
 {
@@ -56,9 +58,7 @@ void MapInit()
 	SinkingShip();
 }
 
-	then you can place here the maps you want to Disallow the script	*/ 
-
-const array<string> DISALLOWED_MAPS = { 'map1', 'map2', 'campaign_*' };
+	then you can place there the maps you want to Disallow the script	*/ 
 
 void SinkingShip()
 {
