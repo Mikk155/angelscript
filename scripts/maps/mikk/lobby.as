@@ -1,4 +1,4 @@
-//Plugin created by Outerbeast version map script
+// Plugin ported by Outerbeast. version map script
 const string strWelcomeModel = "models/lobby.mdl"; //-name of the motd V_ view model 
 
 void MapInit()
@@ -6,6 +6,25 @@ void MapInit()
 	g_Hooks.RegisterHook( Hooks::Player::PlayerSpawn, @DrawGordonAnimation );
 	g_Game.PrecacheModel( strWelcomeModel );
 	CreateMusic();
+	PrecacheSound( SoundsZzz );
+}
+
+const array<string> SoundsZzz = 
+{
+    "mikk/motd/central_fbi.mp3",
+    "mikk/motd/coshunie.mp3",
+    "mikk/motd/deny.mp3",
+    "mikk/motd/themarias.mp3"
+};
+
+// Precaches an array of sounds
+void PrecacheSound( const array<string> pSound )
+{
+    for( uint i = 0; i < pSound.length(); i++ )
+    {
+        g_SoundSystem.PrecacheSound( pSound[i] );
+        g_Game.PrecacheGeneric( "sound/" + pSound[i] );
+    }
 }
 
 HookReturnCode DrawGordonAnimation(CBasePlayer@ pPlayer)
@@ -26,7 +45,7 @@ void CreateMusic();
     keyvalues =
     {
         { "triggerstate", "1" },
-        { "delay", "4"},						// Let the server think for a momment
+        { "delay", "4"},
         { "target", "enable_trigger_random" }
     };
     @pEntity = g_EntityFuncs.CreateEntity( "trigger_auto", keyvalues, true );
