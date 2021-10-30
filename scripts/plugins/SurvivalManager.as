@@ -67,7 +67,7 @@ void MapInit()
         
         if( !bEnabled )
         {	// Echo. server console print if failed
-            g_PlayerFuncs.ClientPrintAll( HUD_PRINTNOTIFY, "Survival-mode Disabled.\n" );
+            g_PlayerFuncs.ServerPrint( "Survival-mode Disabled.\n" );
 			// Return drop weapons if the plugin are disabled
             g_EngineFuncs.CVarSetFloat( "mp_dropweapons", 1 );
         }
@@ -80,10 +80,9 @@ void SurvivalModeEnable()
 {
     g_EngineFuncs.CVarSetFloat( "mp_survival_startdelay", 0 );
     g_EngineFuncs.CVarSetFloat( "mp_dropweapons", 1 );
-    g_SurvivalMode.Enable( true ); // Reenable survival mode
 	// Reenable survival mode
     g_SurvivalMode.Activate( true );
-    g_PlayerFuncs.ClientPrintAll( HUD_PRINTNOTIFY, "Survival-mode & Player-Drop has been enabled.\n" );
+    g_PlayerFuncs.ClientPrintAll( HUD_PRINTTALK, "Survival-mode & Player-Drop has been enabled.\n" );
 
     NetworkMessage message( MSG_ALL, NetworkMessages::SVC_STUFFTEXT );
     message.WriteString( "spk buttons/bell1" );
