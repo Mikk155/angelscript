@@ -8,24 +8,26 @@
 /********************************************************************************************/
 bool bEnabled;
 
-// Add here the maps that you want this plugin be enabled -mikk
-const array<string> ALLOWED_MAPS = { 'hl_*', 'ba_*', 'of*', 'infested', 'ofhlv9_c*', 'hlcs_*', 'ins2_*', 'tronal_pinger' };
+// Add here the maps that you want this plugin be Disabled -mikk
+const array<string> DISALLOWED_MAPS = { 'hl_*', 'ba_*', 'of*', 'infested', 'ofhlv9_c*', 'hlcs_*', 'ins2_*', 'tronal_pinger' };
 
 void PluginInit()
 {
 	g_Module.ScriptInfo.SetAuthor( "Mikk" );
 	g_Module.ScriptInfo.SetContactInfo( "https://discord.gg/Dj9tcTfuM8" );
+	
+	g_Hooks.RegisterHook( Hooks::Player::ClientDisconnect, @ClientDisconnect );
 }
 
 void MapInit()
 {
      uint uiCount = 0;
 
-	for( uint i = 0; i < ALLOWED_MAPS.length(); i++ ) 
+	for( uint i = 0; i < DISALLOWED_MAPS.length(); i++ ) 
 	{
         
 	bool wildcard = false;
-	string tmp = ALLOWED_MAPS[i];
+	string tmp = DISALLOWED_MAPS[i];
         
 		if ( tmp.SubString( tmp.Length()-1, 1 ) == "*" )
 		{
@@ -40,7 +42,7 @@ void MapInit()
 				uiCount++;
 			}
 		}
-		else if( g_Engine.mapname == ALLOWED_MAPS[i] )
+		else if( g_Engine.mapname == DISALLOWED_MAPS[i] )
 		{
 			uiCount++;
 		}
@@ -61,6 +63,15 @@ HookReturnCode croshair_PPreThink( CBasePlayer@ pPlayer, uint& out uiFlags )
 {
 	NetworkMessage msg(MSG_ONE, NetworkMessages::SVC_STUFFTEXT, pPlayer.edict());
 		msg.WriteString("crosshair 0");
+	msg.End();
+
+    return HOOK_CONTINUE;
+}
+
+HookReturnCode ClientDisconnect( CBasePlayer@ pPlayer, uint& out uiFlags )
+{
+	NetworkMessage msg(MSG_ONE, NetworkMessages::SVC_STUFFTEXT, pPlayer.edict());
+		msg.WriteString("crosshair 1");
 	msg.End();
 
     return HOOK_CONTINUE;

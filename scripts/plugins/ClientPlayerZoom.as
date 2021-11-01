@@ -2,13 +2,58 @@
 /*																							*/
 /*			This plugin will let players to use Zoom IN-OUT									*/
 /*																							*/
+/*		Thanks to Incognico for the MapBlackList code. so you can exlude intros				*/
+/*		https://github.com/incognico														*/
+/*																							*/
 /********************************************************************************************/
+bool bEnabled;
+
+const array<string> DISALLOWED_MAPS = { 'sniper', 'fix_*', 'func_pushable', 'bm_sts' };
 
 void PluginInit()
 {
 	g_Module.ScriptInfo.SetAuthor( "Mikk" );
 	g_Module.ScriptInfo.SetContactInfo( "https://discord.gg/Dj9tcTfuM8" );
-	
+}
+
+void MapInit()
+{
+     uint uiCount = 0;
+
+	for( uint i = 0; i < DISALLOWED_MAPS.length(); i++ ) 
+	{
+        
+	bool wildcard = false;
+	string tmp = DISALLOWED_MAPS[i];
+        
+		if ( tmp.SubString( tmp.Length()-1, 1 ) == "*" )
+		{
+			wildcard = true;
+			tmp = tmp.SubString( 0, tmp.Length()-1 );
+		}
+            
+		if ( wildcard )
+		{
+			if ( tmp == string(g_Engine.mapname).SubString( 0, tmp.Length() ) )
+			{
+				uiCount++;
+			}
+		}
+		else if( g_Engine.mapname == DISALLOWED_MAPS[i] )
+		{
+			uiCount++;
+		}
+	}
+
+	if( uiCount <= 0 )
+	bEnabled = true;
+	else
+		bEnabled = false;
+        
+	if( !bEnabled )
+	{
+	}
+	else
 	g_Hooks.RegisterHook( Hooks::Player::PlayerPreThink, @PlayerZoom::PlayerZoom );
 }
 
