@@ -15,7 +15,7 @@
 /********************************************************************************************/
 bool bEnabled;
 
-const array<string> DISALLOWED_MAPS = { 'sc_tetris*', 'of0a0', 'aom*', 'bm_sts' };
+const array<string> DISALLOWED_MAPS = { 'sc_tetris*', 'of0a0', 'fallguys', 'bm_sts' };
 
 void PluginInit()
 {
@@ -66,9 +66,7 @@ void MapInit()
             bEnabled = false;
         
         if( !bEnabled )
-        {	// Echo. server console print if failed
-            g_PlayerFuncs.ServerPrint( "Survival-mode Disabled.\n" );
-			// Return drop weapons if the plugin are disabled
+        {	// Return drop weapons if the plugin are disabled
             g_EngineFuncs.CVarSetFloat( "mp_dropweapons", 1 );
         }
         else	// SetTimeOut if map is not on the black list.
@@ -82,7 +80,7 @@ void SurvivalModeEnable()
     g_EngineFuncs.CVarSetFloat( "mp_dropweapons", 1 );
 	// Reenable survival mode
     g_SurvivalMode.Activate( true );
-    g_PlayerFuncs.ClientPrintAll( HUD_PRINTTALK, "Survival-mode & Player-Drop has been enabled.\n" );
+    g_PlayerFuncs.ClientPrintAll( HUD_PRINTTALK, "cvar mp_dropweapons set to 1\n" );
 
     NetworkMessage message( MSG_ALL, NetworkMessages::SVC_STUFFTEXT );
     message.WriteString( "spk buttons/bell1" );
