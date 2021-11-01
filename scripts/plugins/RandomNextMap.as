@@ -1,3 +1,9 @@
+/* 
+	not an aparently reason to do this.
+	i just did this shitty script to play
+	random maps in a random day
+
+*/
 void PluginInit()
 {
 	g_Module.ScriptInfo.SetAuthor( "Mikk" );
