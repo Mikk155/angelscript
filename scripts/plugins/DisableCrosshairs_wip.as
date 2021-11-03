@@ -8,13 +8,15 @@
 /********************************************************************************************/
 bool bEnabled;
 
-// Add here the maps that you want this plugin be Disabled -mikk
-const array<string> DISALLOWED_MAPS = { 'hl_*', 'ba_*', 'of*', 'infested', 'ofhlv9_c*', 'hlcs_*', 'ins2_*', 'tronal_pinger' };
+// Add here the maps that you want this plugin be Enabled -mikk
+const array<string> DISALLOWED_MAPS = { 'hl_*', 'fallguys', 'of*', 'infested', 'ofhlv9_c*', 'hlcs_*', 'ins2_*', 'tronal_pinger' };
 
 void PluginInit()
 {
 	g_Module.ScriptInfo.SetAuthor( "Mikk" );
 	g_Module.ScriptInfo.SetContactInfo( "https://discord.gg/Dj9tcTfuM8" );
+	
+	g_Hooks.RegisterHook( Hooks::Player::ClientDisconnect, @ClientDisconnect );
 }
 
 void MapInit()
@@ -53,10 +55,8 @@ void MapInit()
         
 	if( !bEnabled )
 	{	// Register Hook ONLY if the map is on the whitelist
+		g_Hooks.RegisterHook( Hooks::Player::PlayerPreThink, @croshair_PPreThink );
 	}
-	else
-	g_Hooks.RegisterHook( Hooks::Player::PlayerPreThink, @croshair_PPreThink );
-	g_Hooks.RegisterHook( Hooks::Player::ClientDisconnect, @ClientDisconnect );
 }
 
 HookReturnCode croshair_PPreThink( CBasePlayer@ pPlayer, uint& out uiFlags )
