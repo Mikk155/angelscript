@@ -19,7 +19,7 @@ void CheckWeaponsFlags()
         g_EntityFuncs.DispatchKeyValue( pEntity.edict(), "spawnflags", "256" );
     }
 
-    while( ( @pEntity = g_EntityFuncs.FindEntityByClassname( pEntity, "item_battery" ) ) !is null ) // Using certain names due to bug item_inventory
+    while( ( @pEntity = g_EntityFuncs.FindEntityByClassname( pEntity, "item_battery" ) ) !is null ) // Using certain names due to bug item_inventory / generic
     {
         g_EntityFuncs.DispatchKeyValue( pEntity.edict(), "spawnflags", "256" );
     }

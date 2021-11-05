@@ -12,7 +12,7 @@ void MapStart() {
 
   for (uint i = 0; i < g_ChangeEnts.length(); ++i) {
     while( ( @pEnt = g_EntityFuncs.FindEntityByClassname( pEnt, g_ChangeEnts[i] ) ) !is null ) {
-      g_EntityFuncs.DispatchKeyValue( pEnt.edict(), "dmg", 9999 );
+      g_EntityFuncs.DispatchKeyValue( pEnt.edict(), "dmg", 10 );
     }
   }
 }
