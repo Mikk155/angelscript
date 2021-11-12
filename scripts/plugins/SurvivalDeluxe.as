@@ -2,6 +2,9 @@
 /*																							*/
 /*		This plugin will prevent players from farm-dupe weapons	and will suddenly			*/
 /*		Enable the Survival-mode with not count-down messages.				 				*/
+/*		this plugin will check if survival is supported. how many time it take to get on.	*/
+/*		if mp_dropweapons are enabled or disabled. and if the map is not on the blacklist	*/
+/*		and check if conditions are meet													*/
 /*																							*/
 /*		Special Thanks to: 																	*/
 /*		Outerbeast for scripting support													*/
@@ -86,7 +89,6 @@ void MapInit()
 		
 		if( bDropWeapEnabled )
 		{
-			g_SurvivalMode.Disable();
 			g_Scheduler.SetTimeout( "Dropenabled", flSurvivalStartDelay );
 			g_EngineFuncs.CVarSetFloat( "mp_dropweapons", 0 );
 		}
