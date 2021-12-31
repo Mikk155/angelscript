@@ -14,13 +14,24 @@
 
 enum FuncAutoSaveFlags
 {
-	SF_AUTOSAVE_OFF	= 1 << 0
+	SF_AUTOSAVE_OFF	= 1 << 0, // Iniciar apagado
+	SF_AUTOSAVE_HA = 1 << 1, // Guardar la vida y la armadura del jugador
+	SF_AUTOSAVE_O = 1 << 2 // Guardar el origin del jugador
+}
+
+class PlayerKeepData
+{
+	Vector origin;
+	float health;
+	float max_health;
+	float armor;
+	float max_armor;
 }
 
 class func_autosave : ScriptBaseEntity  
 {
-    dictionary g_OriginPlayers, g_IDPlayers, g_IDPlayers2;
-	Vector PrimerSpawn, SegundoSpawn, TercerSpawn, CuartoSpawn;
+    private dictionary g_OriginPlayers, g_OriginPlayers2, g_HAPlayers, g_IDPlayers, g_IDPlayers2;
+	private Vector PrimerSpawn, SegundoSpawn, TercerSpawn, CuartoSpawn;
 
 	bool KeyValue( const string& in szKey, const string& in szValue )
 	{
@@ -57,14 +68,7 @@ class func_autosave : ScriptBaseEntity
 		g_EntityFuncs.SetSize( self.pev, self.pev.mins, self.pev.maxs );
 		g_EntityFuncs.SetOrigin( self, self.pev.origin );
 
-		self.pev.effects |= EF_NODRAW;
-
-		if( self.pev.SpawnFlagBitSet( SF_AUTOSAVE_OFF ) )
-		{
-			SetThink( null );
-			SetTouch( null );
-		}
-		else
+		if( !self.pev.SpawnFlagBitSet( SF_AUTOSAVE_OFF ) )
 		{
 			SetThink( ThinkFunction( this.SpawnThink ) );
 			SetTouch( TouchFunction( this.SpawnTouch ) );
@@ -83,25 +87,46 @@ class func_autosave : ScriptBaseEntity
 
         g_IDPlayers[SteamID] = @pPlayer;
 
-		//	g_Game.AlertMessage( at_console, "DEBUG- SteamID has been saved \n" );
+        //	g_Game.AlertMessage( at_console, "DEBUG- SteamID has been saved \n" );
+
+		if( self.pev.SpawnFlagBitSet( SF_AUTOSAVE_O ) )
+		{
+			PlayerKeepData pData;
+			pData.origin = pPlayer.pev.origin;
+			g_OriginPlayers2[SteamID] = pData;
+
+			//	g_Game.AlertMessage( at_console, "DEBUG- Origin saved \n" );
+		}
+
+		if( self.pev.SpawnFlagBitSet( SF_AUTOSAVE_HA ) )
+		{
+			PlayerKeepData pData;
+
+			pData.health = pPlayer.pev.health;
+			pData.max_health = pPlayer.pev.max_health;
+			pData.armor = pPlayer.pev.armorvalue;
+			pData.max_armor = pPlayer.pev.armortype;
+
+			g_HAPlayers[SteamID] = pData;
+
+			//	g_Game.AlertMessage( at_console, "DEBUG- armor/healt saved \n" );
+		}
+			
     }
 
     void Use(CBaseEntity@ pActivator, CBaseEntity@ pCaller, USE_TYPE useType, float flValue = 0.0f)
     {
-		if( self.pev.SpawnFlagBitSet( SF_AUTOSAVE_OFF ) )
-		{
-			SetThink( ThinkFunction( this.SpawnThink ) );
-			SetTouch( TouchFunction( this.SpawnTouch ) );
+		SetThink( ThinkFunction( this.SpawnThink ) );
+		SetTouch( TouchFunction( this.SpawnTouch ) );
 
-			self.pev.nextthink = g_Engine.time + 0.1f;
-		}
+		self.pev.nextthink = g_Engine.time + 0.1f;
 	}
 
 	void SpawnTouch( CBaseEntity@ pOther )
 	{
 		if( pOther is null || !pOther.IsPlayer() || !pOther.IsAlive() )
 			return;
-				
+
 		AddPlayer( cast<CBasePlayer@>( pOther ) );
 	}
 
@@ -118,25 +143,47 @@ class func_autosave : ScriptBaseEntity
 
             string SteamID = g_EngineFuncs.GetPlayerAuthId(pPlayer.edict());
 
-			if( g_IDPlayers.exists(SteamID) && !pPlayer.IsAlive() && pPlayer.GetObserver().IsObserver() )
+			if( g_IDPlayers.exists(SteamID) && !pPlayer.IsAlive() && pPlayer.GetObserver().IsObserver() && pPlayer.pev.button & IN_USE != 0)
             {
                 //Revive player and move to this checkpoint
 				pPlayer.GetObserver().RemoveDeadBody();
 
-				if( Spawns[0] != Vector(0,0,0) && Spawns[1] != Vector(0,0,0) && Spawns[2] != Vector(0,0,0) && Spawns[3] != Vector(0,0,0) )
-					pPlayer.SetOrigin( Spawns[Math.RandomLong( 0, 3 )] );
-				else if( Spawns[0] != Vector(0,0,0) && Spawns[1] != Vector(0,0,0) && Spawns[2] != Vector(0,0,0) && Spawns[3] == Vector(0,0,0) )
-					pPlayer.SetOrigin( Spawns[Math.RandomLong( 0, 2 )] );
-				else if( Spawns[0] != Vector(0,0,0) && Spawns[1] != Vector(0,0,0) && Spawns[2] == Vector(0,0,0) && Spawns[3] == Vector(0,0,0) )
-					pPlayer.SetOrigin( Spawns[Math.RandomLong( 0, 1 )] );
-				else if( Spawns[0] != Vector(0,0,0) && Spawns[1] == Vector(0,0,0) && Spawns[2] == Vector(0,0,0) && Spawns[3] == Vector(0,0,0) )
-					pPlayer.SetOrigin( Spawns[0] );
-				else
-					pPlayer.SetOrigin( self.Center() );
+				if( !g_OriginPlayers2.exists(SteamID) )
+				{
+					if( Spawns[0] != Vector(0,0,0) && Spawns[1] != Vector(0,0,0) && Spawns[2] != Vector(0,0,0) && Spawns[3] != Vector(0,0,0) )
+						pPlayer.SetOrigin( Spawns[Math.RandomLong( 0, 3 )] );
+					else if( Spawns[0] != Vector(0,0,0) && Spawns[1] != Vector(0,0,0) && Spawns[2] != Vector(0,0,0) && Spawns[3] == Vector(0,0,0) )
+						pPlayer.SetOrigin( Spawns[Math.RandomLong( 0, 2 )] );
+					else if( Spawns[0] != Vector(0,0,0) && Spawns[1] != Vector(0,0,0) && Spawns[2] == Vector(0,0,0) && Spawns[3] == Vector(0,0,0) )
+						pPlayer.SetOrigin( Spawns[Math.RandomLong( 0, 1 )] );
+					else if( Spawns[0] != Vector(0,0,0) && Spawns[1] == Vector(0,0,0) && Spawns[2] == Vector(0,0,0) && Spawns[3] == Vector(0,0,0) )
+						pPlayer.SetOrigin( Spawns[0] );
+					else
+						pPlayer.SetOrigin( self.Center() );
 
-				pPlayer.Revive();
+					pPlayer.Revive();
+				}
+				else
+				{
+					PlayerKeepData@ pData = cast<PlayerKeepData@>(g_OriginPlayers2[SteamID]);
+					pPlayer.SetOrigin( pData.origin );
+					
+					pPlayer.Revive();
+				}
+
+				if( g_HAPlayers.exists(SteamID) )
+				{
+					PlayerKeepData@ pData = cast<PlayerKeepData@>(g_HAPlayers[SteamID]);
+
+					pPlayer.pev.health = Math.max( 1, pData.health );
+					pPlayer.pev.max_health = Math.max( 100, pData.max_health );
+					pPlayer.pev.armorvalue = Math.max( 0, pData.armor );
+					pPlayer.pev.armortype = Math.max( 100, pData.max_armor );
+				}
 
 				//	g_Game.AlertMessage( at_console, "DEBUG- Player: | " + pPlayer.pev.netname + " | has been respawned \n" );
+				//	g_Game.AlertMessage( at_console, "DEBUG- Player: | " + "X: " + pPlayer.pev.origin.x + " Y: " + pPlayer.pev.origin.y + " Z: " + pPlayer.pev.origin.z + " | \n" );
+				//	g_Game.AlertMessage( at_console, "DEBUG- Player: | " + "HP: " + pPlayer.pev.health + " Armor: " + pPlayer.pev.armorvalue + " | \n" );
 		
 				g_IDPlayers2[SteamID] = @pPlayer;
 				g_IDPlayers.delete(SteamID);
