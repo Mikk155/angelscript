@@ -40,8 +40,6 @@ void DiffVerify()
         else if( fileContent == "hard" ) 
         {
             diff_path = "scripts/maps/store/campaignname_hard.cfg"; 
-			
-			g_Scheduler.SetTimeout( "ExtraNpc", 2.0f );
         }
         else if( fileContent == "hardcore" ) 
         {
