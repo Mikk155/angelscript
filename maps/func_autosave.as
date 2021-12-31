@@ -1,4 +1,16 @@
-// Idk que xuxa haces leyendo esto.
+// Idk que xuxa haces leyendo esto. -pavotherman
+
+/*
+	A Custom brush entity that has been used for ESHQ Port.
+	it are supposed to work as a "trigger_autosave" but mommentaneous
+	every player life will be saved Once per zone
+	when a player touch it. his steamID will be saved
+	and then when he dies. he will be resurrected at the origins
+	of any keyvalue from this entity. (add origins to kvs)
+	
+	Know-Issues:
+	a player using more than 4 zones will not work
+*/
 
 enum FuncAutoSaveFlags
 {
@@ -71,7 +83,7 @@ class func_autosave : ScriptBaseEntity
 
         g_IDPlayers[SteamID] = @pPlayer;
 
-        g_Game.AlertMessage( at_console, "SteamID ha sido añadido \n" );
+		//	g_Game.AlertMessage( at_console, "DEBUG- SteamID has been saved \n" );
     }
 
     void Use(CBaseEntity@ pActivator, CBaseEntity@ pCaller, USE_TYPE useType, float flValue = 0.0f)
@@ -124,7 +136,7 @@ class func_autosave : ScriptBaseEntity
 
 				pPlayer.Revive();
 
-				g_Game.AlertMessage( at_console, "Player: | " + pPlayer.pev.netname + " | ha sido respawneado \n" );
+				//	g_Game.AlertMessage( at_console, "DEBUG- Player: | " + pPlayer.pev.netname + " | has been respawned \n" );
 		
 				g_IDPlayers2[SteamID] = @pPlayer;
 				g_IDPlayers.delete(SteamID);
