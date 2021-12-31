@@ -1,0 +1,11 @@
+@SolidClass base(Targetname) = func_autosave : "more than 3 entities will buggy the script :/"
+[
+    PrimerSpawn(string) : "spawn vector case 1" : "0 0 0"
+    SegundoSpawn(string) : "spawn vector case 2" : "0 0 0"
+    TercerSpawn(string) : "spawn vector case 3" : "0 0 0"
+    CuartoSpawn(string) : "spawn vector case 4" : "0 0 0"
+    spawnflags(flags) =
+    [
+        1: "Start Off" : 0
+    ]
+]

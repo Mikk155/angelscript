@@ -9,6 +9,10 @@
     Default: 4
 /*/
 
+/* 
+	env_quakefx entitie ported from SoHL to Angelscript for porting maps into Sven Co-op 
+*/
+
 enum envquakefxspawnflags
 {
 	SF_QUAKEFX_REPEATABLE = 1 << 0
