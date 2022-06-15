@@ -6,11 +6,13 @@
 	you could just use the AmmoIndividualRemap(); at the MapActivate to do the remap automatically.
 	if want to Exclude certain items there are 3 different ways to do it,
 	
-	1) Add the AmmoIndividualRemap() into the MapActivate and exclude manually the items on the map by adding this keyvalue to them "$i_ignore_item" "anything else"
+	1) Add the AmmoIndividualRemap() into the MapActivate and exclude manually the items on the map by adding this keyvalue to them "$i_ignore_item" "anything"
+	 this is the way i normally use.
 	
 	2) Just take the remaps you want from the AmmoIndividualRemap() and add them individually to MapActivate
+	preferable if you're lazy to do the first one
 	
-	3) rename the items on the map by just adding "_individual" at the end of the classname.
+	3) dont register the AmmoIndividualRemap() then rename the items on the map by just adding "_individual" at the end of their classnames.
 	
 */
 void RegisterAmmoIndividual()
