@@ -1,6 +1,6 @@
 /*
 * trigger_once_mp
-* Point Entity
+* Point Entity / Solid Entity
 * Variable Hullsize and percentage of living people
 */
 
@@ -8,9 +8,9 @@
 	Original Script by Cubemath, Modified by Gaftherman
 	
 	extras: 
-	keyvalue "model" added. now you could use a brush model instead of hullsizes to detect people
-	keyvalue "killtarget" added. now you could killsomething
-	A custom message will appear to the players into the zone. showing current percentage, needed percentage, and total needed percentage.
+	keyvalue "model" added. now you can use a brush model instead of hullsizes to detect people. in mapping tie to entity a brush model.
+	keyvalue "killtarget" added. now you can kill something after the percentage of people get true
+	A custom message will appear to let players into the zone know the current percentage, needed percentage, and total needed percentage (see line 136)
 */
 
 enum trigger_once_flag
