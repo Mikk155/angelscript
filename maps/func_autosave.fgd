@@ -1,13 +1,23 @@
-@SolidClass base(Targetname) = func_autosave : "more than 3 entities will buggy the script :/"
+@BaseClass = Targetname 
+[ 
+	targetname(target_source) : "Name"
+]
+
+@SolidClass base(Targetname) = func_autosave : "Individual Checkpoint"
 [
-    PrimerSpawn(string) : "First origin" : "0 0 0"
-    SegundoSpawn(string) : "Second origin" : "0 0 0"
-    TercerSpawn(string) : "Third origin" : "0 0 0"
-    CuartoSpawn(string) : "Fourth origin" : "0 0 0"
+    // the player resurrected will take one of these spots randomly
+    PrimerSpawn(string) : "First Spawn" : "0 0 0"
+    SegundoSpawn(string) : "Second Spawn" : "0 0 0"
+    TercerSpawn(string) : "Third Spawn" : "0 0 0"
+    CuartoSpawn(string) : "Fourth Spawn" : "0 0 0"
     spawnflags(flags) =
     [
         1: "Start Off" : 0
+        // if ON the players will resurrect with their same
+        // armor and health that they had when touched the zone for first time
         2: "Keep armor/health (when touch)" : 0
+        // if ON the keyvalues will be ignored and the player will resurrect at the same
+        // origin they had when they have touched the zone
         3: "Keep origin (when touch)" : 0
     ]
 ]
