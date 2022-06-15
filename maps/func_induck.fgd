@@ -1,6 +1,6 @@
-@SolidClass base(Targetname) = func_induck : "a brush entity for stealth type maps"
+@SolidClass base(Targetname) = func_induck : "notarget entity"
 [
-	targetname(target_source) : "Target Name"
+    targetname(target_source) : "Target Name"
     spawnflags(flags) =
     [
         1: "Start Off" : 0
