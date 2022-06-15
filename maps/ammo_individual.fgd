@@ -1,19 +1,6 @@
-@BaseClass = Mandatory
-[
-	ondestroyfn(string) : "OnDestroy Function"
-]
-
 @BaseClass base(Mandatory) = Targetname
 [
 	targetname(target_source) : "Name"
-]
-
-@BaseClass = Appearflags
-[
-	spawnflags(Flags) =
-	[
-		2048 : "Not in Deathmatch" : 0
-	]
 ]
 
 @BaseClass = Angles
@@ -21,44 +8,18 @@
 	angles(string) : "Pitch Yaw Roll (X Y Z)" : "0 0 0"
 ]
 
-@BaseClass = CustomRespawnDelay
-[
-	m_flCustomRespawnTime(string) : "Custom respawn time"
-]
-
+// could use !activator for triggering a certain entity ONCE per player :)
 @BaseClass = Target
 [
 	target(target_destination) : "Target"
 ]
 
-@BaseClass size(0 0 0, 32 32 32) color(80 0 200) base(Targetname, Appearflags, Angles) = Pickup
+@BaseClass size(0 0 0, 32 32 32) color(80 0 200) base(Targetname, Angles) = Pickup
 [
 	spawnflags(Flags) =
 	[
 		128 : "TOUCH Only" : 0
 		256 : "USE Only" : 0
-		512 : "Can Use w/o LoS" : 0
-		1024: "Disable Respawn" : 0
-	]
-	renderfx(choices) : "Render FX" : 0 =
-	[
-		0: "Normal"
-		1: "Slow Pulse"
-		2: "Fast Pulse"
-		3: "Slow Wide Pulse"
-		4: "Fast Wide Pulse"
-		9: "Slow Strobe"
-		10: "Fast Strobe"
-		11: "Faster Strobe"
-		12: "Slow Flicker"
-		13: "Fast Flicker"
-		5: "Slow Fade Away"
-		6: "Fast Fade Away"
-		7: "Slow Become Solid"
-		8: "Fast Become Solid"
-		14: "Constant Glow"
-		15: "Distort"
-		16: "Hologram (Distort + fade)"
 	]
 	rendermode(choices) : "Render Mode" : 0 =
 	[
@@ -78,28 +39,9 @@
 	]
 ]
 
-@BaseClass size(-8 -8 0, 8 8 16) color(4 128 240) base(Pickup, CustomRespawnDelay) = Ammo
+@BaseClass size(-8 -8 0, 8 8 16) color(4 128 240) base(Pickup) = Ammo
 [
 	model(studio) : "Custom Model" : ""
-]
-
-@BaseClass size(-16 -16 0, 16 16 32) color(2 64 240) base(Pickup, CustomRespawnDelay) = Weapon
-[
-	dmg(integer) : "Custom Damage" : 0
-
-	wpn_v_model(studio) : "Custom V_Model" : ""
-	wpn_w_model(studio) : "Custom W_Model" : ""
-	wpn_p_model(studio) : "Custom P_Model" : ""
-
-	soundlist(string) : "Sound Replacement File"
-
-	CustomSpriteDir(string) : "Custom sprite directory"
-
-	IsNotAmmoItem(choices) : "Is Ammo Item" : 0 =
-	[
-		0 : "Yes"
-		1 : "No"
-	]
 ]
 
 @BaseClass base(Target) = Targetx
@@ -107,16 +49,6 @@
 	delay(string) : "Delay Before Trigger" : "0"
 	killtarget(target_destination) : "Kill Target"
 ]
-
-@BaseClass = ExclusiveHold
-[
-	exclusivehold(choices) : "Exclusive Hold" : 0 =
-	[
-		0 : "No"
-		1 : "Yes"
-	]
-]
-
 
 // ------------------------------------- Ammo_Individual script (19) -------------------------------------
 
@@ -134,8 +66,8 @@
 @PointClass base(Ammo, Targetx) studio("models/w_rpgammo.mdl") = ammo_rpgclip_individual : "Rockets (x2)" []
 @PointClass base(Ammo, Targetx) studio("models/spore.mdl") = ammo_sporeclip_individual : "Spore" []
 @PointClass base(Ammo, Targetx) studio("models/w_uzi_clip.mdl") = ammo_uziclip_individual : "9mm Uzi magazine" []
-@PointClass base(Weapon, Targetx, ExclusiveHold) studio("models/w_sqknest.mdl") = ammo_snarks_individual : "Squeak Grenade" []
-@PointClass base(Weapon, Targetx, ExclusiveHold) studio("models/w_grenade.mdl") = ammo_handgrenade_individual : "Hand Grenade" []
-@PointClass size(-12 -12 0, 12 12 8) base(Targetx, Item) studio("models/w_medkit.mdl") = ammo_medkit_individual : "Health kit AMMO"
-@PointClass size(-12 -12 0, 12 12 8) base(Targetx, Item) studio("models/w_medkit.mdl") = item_healthkit_individual : "Health kit"
-@PointClass size(-4 -4 0, 4 4 16) base(Targetx, Item) studio("models/w_battery.mdl") = item_battery_individual : "HEV battery"
+@PointClass base(Ammo, Targetx) studio("models/w_sqknest.mdl") = ammo_snarks_individual : "Squeak Grenade" []
+@PointClass base(Ammo, Targetx) studio("models/w_grenade.mdl") = ammo_handgrenade_individual : "Hand Grenade" []
+@PointClass base(Ammo, Targetx) studio("models/w_medkit.mdl") = ammo_medkit_individual : "Health kit AMMO" []
+@PointClass base(Ammo, Targetx) studio("models/w_medkit.mdl") = item_healthkit_individual : "Health kit" []
+@PointClass base(Ammo, Targetx) studio("models/w_battery.mdl") = item_battery_individual : "HEV battery" []
