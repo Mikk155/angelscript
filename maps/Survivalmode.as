@@ -1,6 +1,7 @@
 /*
 	Custom Survival mode with dupe AKA "Ammo duplication" fixed for survival mode.
 	also will enable the survival mode without countdown messages (suddenly start) After the "mp_survival_startdelay" time passed
+	this is automatically and the script will check if the map/server cvars bellow is in true (1) otherwise this script wont do anything.
 */
 const bool bSurvivalEnabled = g_EngineFuncs.CVarGetFloat("mp_survival_starton") == 1 && g_EngineFuncs.CVarGetFloat("mp_survival_supported") == 1;
 
