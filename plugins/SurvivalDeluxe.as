@@ -1,22 +1,23 @@
-/********************************************************************************************/
-/*																							*/
-/*		This plugin will prevent players from farm-dupe weapons	and will suddenly			*/
-/*		Enable the Survival-mode with not count-down messages.				 				*/
-/*		this plugin will check if survival is supported. how many time it take to get on.	*/
-/*		if mp_dropweapons are enabled or disabled. and if the map is not on the blacklist	*/
+/********************************************************************************************************************************************************/
+/*																			*/
+/*		This plugin will prevent players from farm-dupe weapons	and will suddenly								*/
+/*		Enable the Survival-mode with not count-down messages.				 							*/
+/*		this plugin will check if survival is supported. how many time it take to get on.							*/
+/*		if mp_dropweapons are enabled or disabled. and if the map is not on the blacklist							*/
 /*		and check if conditions are meet													*/
-/*																							*/
-/*		Special Thanks to: 																	*/
+/*																			*/
+/*		Special Thanks to: 															*/
 /*		Outerbeast for scripting support													*/
 /*		https://github.com/Outerbeast														*/
-/*																							*/
+/*																			*/
 /*		Incognico for Black-List code														*/
 /*		https://github.com/incognico														*/
-/*																							*/
+/*																			*/
 /*		Gaftherman for scripting support													*/
 /*		https://github.com/Gaftherman														*/
-/*																							*/
-/********************************************************************************************/
+/*																			*/
+/*		MapScript version https://github.com/Mikk155/angelscript/blob/main/maps/Survivalmode.as							*/
+/********************************************************************************************************************************************************/
 
 /*  Add here the maps you don't want this plugin to be enabled.  */
 /*  use * at the end to specif a mapseries                       */
