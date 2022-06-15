@@ -9,7 +9,7 @@
 	of any keyvalue from this entity. (add origins to kvs)
 	
 	Know-Issues:
-	a player using more than 4 zones will not work
+	a player using more than 4 zones (at same time) will "bug" it
 */
 
 enum FuncAutoSaveFlags
