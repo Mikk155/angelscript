@@ -5,8 +5,9 @@
 	Plugin version https://github.com/Mikk155/angelscript/blob/main/plugins/SurvivalDeluxe.as
 	
 	Credits:
-	Mikk idea
-	Gaftherman Script
+	Mikk Script
+	Outerbeast for help
+	Gaftherman for help
 */
 const bool bSurvivalEnabled = g_EngineFuncs.CVarGetFloat("mp_survival_starton") == 1 && g_EngineFuncs.CVarGetFloat("mp_survival_supported") == 1;
 
