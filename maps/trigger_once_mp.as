@@ -11,6 +11,11 @@
 	keyvalue "model" added. now you can use a brush model instead of hullsizes to detect people. in mapping tie to entity a brush model.
 	keyvalue "killtarget" added. now you can kill something after the percentage of people get true
 	A custom message will appear to let players into the zone know the current percentage, needed percentage, and total needed percentage (see line 136)
+	
+	Credits:
+	Mikk idea
+	Gaftherman Script
+	CubeMath Script
 */
 
 enum trigger_once_flag
