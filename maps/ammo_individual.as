@@ -14,6 +14,10 @@
 	
 	3) dont register the AmmoIndividualRemap() then rename the items on the map by just adding "_individual" at the end of their classnames.
 	
+	Credits:
+	Mikk idea
+	Gaftherman Script
+	
 */
 void RegisterAmmoIndividual()
 {
