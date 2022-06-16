@@ -11,6 +11,9 @@
 
 /* 
 	env_quakefx entitie ported from SoHL to Angelscript for porting maps into Sven Co-op 
+	
+	Credits:
+	Gaftherman Script
 */
 
 enum envquakefxspawnflags
