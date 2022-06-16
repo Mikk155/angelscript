@@ -10,6 +10,11 @@
 	
 	Know-Issues:
 	a player using more than 4 zones (at same time) will "bug" it
+	
+	Credits:
+	Mikk idea
+	Sparks for help
+	Gaftherman Script
 */
 
 enum FuncAutoSaveFlags
