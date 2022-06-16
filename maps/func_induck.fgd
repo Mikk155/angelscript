@@ -1,6 +1,7 @@
 @SolidClass base(Targetname) = func_induck : "notarget entity"
 [
     targetname(target_source) : "Target Name"
+    // added spawnflag start off but you can use "master" as well.
     spawnflags(flags) =
     [
         1: "Start Off" : 0
