@@ -2,6 +2,11 @@
 	Custom Brush entity used for the campaign Hardcore-Life on a certain maps that are supposed
 	to implement a "stealth" system, players holding control into the brush will receive notarget mode
 	use this brush where you have placed shadow/leaves/brushes etc
+	
+	Credits:
+	Mikk idea
+	Sparks for help
+	Gaftherman Script
 */
 enum func_induck_flag
 {
