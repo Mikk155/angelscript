@@ -14,6 +14,10 @@
 -do NOT use quotes " into the cfg files
 -do NOT use ; into the cfg files
 -hardcore mode will add 1hp to the players. check line 132
+	
+	Credits:
+	Mikk idea
+	Gaftherman Script
 
 */
 
