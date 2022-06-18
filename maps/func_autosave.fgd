@@ -5,7 +5,7 @@
 
 @SolidClass base(Targetname) = func_autosave : "Individual Checkpoint"
 [
-    // the player resurrected will take one of these spots randomly
+    // the player resurrected will take one of these spots randomly. origin acording to worldspawn UNLESS you add a origin brush to the entity.
     PrimerSpawn(string) : "First Spawn" : "0 0 0"
     SegundoSpawn(string) : "Second Spawn" : "0 0 0"
     TercerSpawn(string) : "Third Spawn" : "0 0 0"
