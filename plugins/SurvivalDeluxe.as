@@ -19,15 +19,18 @@
 /*		MapScript version https://github.com/Mikk155/angelscript/blob/main/maps/Survivalmode.as							*/
 /********************************************************************************************************************************************************/
 
-/*  Add here the maps you don't want this plugin to be enabled.  */
-/*  use * at the end to specif a mapseries                       */
+/*
+	Add here the maps you don't want this plugin to be enabled. use * at the end to specif a mapseries                   
+	this is not really needed, this script will see if the map supports and have survival mode enabled.
+	but in case you want to *anyways* disable this
+*/
 
 const array<string> DISALLOWED_MAPS = 
 { 
 	"hcl_*",
-	"of0a0", 
-	"arctic_incident_1", 
-	"bm_sts"
+	"infested*", 
+	"sc_*", 
+	"aom*"
 };
 
 void PluginInit()
