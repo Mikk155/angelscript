@@ -1,4 +1,6 @@
 /*
+	STATE: very functional but still wip
+	
 	Black-mesa source inspired recharge crystals
 	keyvalue "type" define what the entity will do.
 	0 = damage player
