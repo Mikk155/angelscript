@@ -1,6 +1,8 @@
 bool bEnabled;
-/*					Add here the maps you don't want this plugin to be enabled. */
-/*					use * at the end to specif a map-series						*/
+/*
+	Add here the maps you don't want this plugin to be enabled.
+	use * at the end to specif a map-series						
+*/
 
 const array<string> DISALLOWED_MAPS = { 'hcl_c*', 'aom*', 'eshq_c*', 'bm_sts' };
 
